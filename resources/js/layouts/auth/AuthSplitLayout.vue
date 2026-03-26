@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { Timer } from 'lucide-vue-next';
 import { home } from '@/routes';
 
 const page = usePage();
@@ -24,11 +23,11 @@ defineProps<{
                 :href="home()"
                 class="relative z-20 flex items-center gap-2 text-lg font-medium"
             >
-                <div
-                    class="flex h-8 w-8 items-center justify-center rounded-md bg-white text-zinc-900"
-                >
-                    <Timer class="size-5" />
-                </div>
+                <img
+                    src="/assets/logos/planky-32.png"
+                    alt="Planky"
+                    class="size-8 rounded-md object-contain"
+                />
                 Planky
             </Link>
         </div>

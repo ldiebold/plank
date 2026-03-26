@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { Timer } from 'lucide-vue-next';
 import {
     Card,
     CardContent,
@@ -25,11 +24,11 @@ defineProps<{
                 :href="home()"
                 class="flex items-center gap-2 self-center font-medium"
             >
-                <div
-                    class="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground"
-                >
-                    <Timer class="size-6" />
-                </div>
+                <img
+                    src="/assets/logos/planky-40.png"
+                    alt="Planky"
+                    class="size-9 rounded-md object-contain"
+                />
                 <span class="text-lg font-semibold">Planky</span>
             </Link>
 

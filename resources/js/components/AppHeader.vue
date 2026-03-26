@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import {
-    BookOpen,
-    Folder,
-    LayoutGrid,
-    Menu,
-    Search,
-    Timer,
-} from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
@@ -102,11 +95,11 @@ const rightNavItems: NavItem[] = [
                                 >Navigation menu</SheetTitle
                             >
                             <SheetHeader class="flex justify-start text-left">
-                                <div
-                                    class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground"
-                                >
-                                    <Timer class="size-4" />
-                                </div>
+                                <img
+                                    src="/assets/logos/planky-32.png"
+                                    alt="Planky"
+                                    class="size-6 rounded-md object-contain"
+                                />
                             </SheetHeader>
                             <div
                                 class="flex h-full flex-1 flex-col justify-between space-y-4 py-6"

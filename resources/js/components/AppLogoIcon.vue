@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { Timer } from 'lucide-vue-next';
 
 defineOptions({
     inheritAttrs: false,
@@ -14,5 +13,10 @@ defineProps<Props>();
 </script>
 
 <template>
-    <Timer :class="className" v-bind="$attrs" />
+    <img
+        src="/assets/logos/planky-32.png"
+        alt="Planky"
+        :class="className"
+        v-bind="$attrs"
+    />
 </template>

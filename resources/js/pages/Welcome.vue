@@ -36,11 +36,11 @@ withDefaults(
                 class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
             >
                 <div class="flex items-center gap-2">
-                    <div
-                        class="flex aspect-square size-10 items-center justify-center rounded-lg bg-primary text-white"
-                    >
-                        <Timer class="size-6" />
-                    </div>
+                    <img
+                        src="/assets/logos/planky-40.png"
+                        alt="Planky"
+                        class="size-10 rounded-lg object-contain"
+                    />
                     <span class="text-xl font-bold">Planky</span>
                 </div>
                 <nav class="flex items-center gap-4">
@@ -76,11 +76,11 @@ withDefaults(
         <section class="relative px-4 pt-20 pb-16 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-4xl text-center">
                 <div class="mb-6 flex justify-center">
-                    <div
-                        class="flex aspect-square size-20 items-center justify-center rounded-2xl bg-primary text-white shadow-lg"
-                    >
-                        <Timer class="size-12" />
-                    </div>
+                    <img
+                        src="/assets/logos/planky-240.png"
+                        alt="Planky"
+                        class="h-[200px] w-[200px] rounded-2xl object-contain shadow-lg"
+                    />
                 </div>
                 <h1
                     class="mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl dark:text-white"
@@ -296,11 +296,11 @@ withDefaults(
                     class="flex flex-col items-center justify-between gap-4 sm:flex-row"
                 >
                     <div class="flex items-center gap-2">
-                        <div
-                            class="flex aspect-square size-8 items-center justify-center rounded-md bg-primary text-white"
-                        >
-                            <Timer class="size-5" />
-                        </div>
+                        <img
+                            src="/assets/logos/planky-32.png"
+                            alt="Planky"
+                            class="size-8 rounded-md object-contain"
+                        />
                         <span class="text-lg font-semibold">Planky</span>
                     </div>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
