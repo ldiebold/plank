@@ -20,9 +20,9 @@ defineProps<{
                         class="flex flex-col items-center gap-2 font-medium"
                     >
                         <img
-                            src="/assets/logos/planky-40.png"
+                            src="/assets/logos/planky-120.png"
                             alt="Planky"
-                            class="mb-1 size-9 rounded-md object-contain"
+                            class="mb-1 h-[100px] w-[100px] rounded-md object-contain"
                         />
                         <span class="sr-only">{{ title }}</span>
                     </Link>

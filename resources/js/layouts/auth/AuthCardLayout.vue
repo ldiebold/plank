@@ -25,9 +25,9 @@ defineProps<{
                 class="flex items-center gap-2 self-center font-medium"
             >
                 <img
-                    src="/assets/logos/planky-40.png"
+                    src="/assets/logos/planky-120.png"
                     alt="Planky"
-                    class="size-9 rounded-md object-contain"
+                    class="h-[100px] w-[100px] rounded-md object-contain"
                 />
                 <span class="text-lg font-semibold">Planky</span>
             </Link>
