@@ -23,6 +23,29 @@ withDefaults(
     <Head title="Planky - Plank Together">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <!-- Open Graph / Social Media -->
+        <meta
+            name="description"
+            content="Build core strength with friends! Create challenges, track your progress, and motivate each other to reach your plank goals."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Planky - Plank Together" />
+        <meta
+            property="og:description"
+            content="Build core strength with friends! Create challenges, track your progress, and motivate each other to reach your plank goals."
+        />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Planky" />
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Planky - Plank Together" />
+        <meta
+            name="twitter:description"
+            content="Build core strength with friends! Create challenges, track your progress."
+        />
+        <meta name="twitter:image" content="/og-image.png" />
     </Head>
 
     <div
