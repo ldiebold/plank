@@ -29,7 +29,7 @@ const form = useForm({
     description: '',
     starting_time_seconds: '60',
     daily_increment_seconds: '10',
-    goal_time_seconds: '',
+    goal_time_seconds: 'none',
     start_date: new Date().toISOString().split('T')[0],
     is_active: true,
 });
@@ -49,7 +49,7 @@ const incrementOptions = [
 ];
 
 const goalOptions = [
-    { value: '', label: 'No goal (unlimited)' },
+    { value: 'none', label: 'No goal (unlimited)' },
     { value: '300', label: '5 minutes' },
     { value: '600', label: '10 minutes' },
     { value: '900', label: '15 minutes' },
@@ -57,7 +57,11 @@ const goalOptions = [
 ];
 
 function submit() {
-    form.post(challenges.store());
+    form.transform((data) => ({
+        ...data,
+        goal_time_seconds:
+            data.goal_time_seconds === 'none' ? null : data.goal_time_seconds,
+    })).post(challenges.store());
 }
 
 defineOptions({

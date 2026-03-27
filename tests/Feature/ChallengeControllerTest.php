@@ -7,6 +7,7 @@ use App\Models\PlankCompletion;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 uses(RefreshDatabase::class);
 
@@ -17,6 +18,11 @@ it('renders the challenges index page when the user is not in a challenge', func
         public function isInChallenge(): bool
         {
             return false;
+        }
+
+        public function currentChallenge(): ?Challenge
+        {
+            return null;
         }
     };
 
@@ -56,6 +62,34 @@ it('creates a challenge and joins the creator on store', function () {
 
     expect($challenge)->not->toBeNull();
     expect($challenge->created_by)->toBe($user->id);
+    expect($challenge->users()->whereKey($user->id)->exists())->toBeTrue();
+    expect($response->getTargetUrl())->toBe(route('challenges.show', $challenge));
+});
+
+it('creates a challenge without a goal time', function () {
+    $controller = new ChallengeController;
+
+    $user = User::factory()->create();
+
+    $request = Mockery::mock(StoreChallengeRequest::class);
+    $request->shouldReceive('validated')->once()->andReturn([
+        'name' => 'Starter Challenge',
+        'description' => 'Core strength challenge',
+        'starting_time_seconds' => 60,
+        'daily_increment_seconds' => 10,
+        'goal_time_seconds' => null,
+        'start_date' => today()->toDateString(),
+        'is_active' => true,
+    ]);
+    $request->shouldReceive('user')->andReturn($user);
+
+    $response = $controller->store($request);
+
+    $challenge = Challenge::query()->first();
+
+    expect($challenge)->not->toBeNull();
+    expect($challenge->created_by)->toBe($user->id);
+    expect($challenge->goal_time_seconds)->toBeNull();
     expect($challenge->users()->whereKey($user->id)->exists())->toBeTrue();
     expect($response->getTargetUrl())->toBe(route('challenges.show', $challenge));
 });
@@ -110,6 +144,11 @@ it('joins a challenge by invite code', function () {
         {
             return false;
         }
+
+        public function currentChallenge(): ?Challenge
+        {
+            return null;
+        }
     };
 
     $persistedJoiner = User::factory()->create();
@@ -134,4 +173,57 @@ it('joins a challenge by invite code', function () {
 
     expect($challenge->users()->whereKey($persistedJoiner->id)->exists())->toBeTrue();
     expect($response->getTargetUrl())->toBe(route('challenges.show', $challenge));
+});
+
+it('allows a user to leave a challenge they are in', function () {
+    $controller = new ChallengeController;
+
+    $user = User::factory()->create();
+
+    $challenge = Challenge::query()->create([
+        'name' => 'Test Challenge',
+        'description' => null,
+        'created_by' => $user->id,
+        'starting_time_seconds' => 60,
+        'daily_increment_seconds' => 10,
+        'goal_time_seconds' => 120,
+        'start_date' => today(),
+        'is_active' => true,
+    ]);
+
+    $challenge->users()->attach($user->id);
+
+    $request = Request::create('/challenges/'.$challenge->id.'/leave', 'DELETE');
+    $request->setUserResolver(fn () => $user);
+
+    $response = $controller->leave($request, $challenge);
+
+    expect($challenge->users()->whereKey($user->id)->exists())->toBeFalse();
+    expect($response->getTargetUrl())->toBe(route('challenges.index'));
+});
+
+it('does not allow a user to leave a challenge they are not in', function () {
+    $controller = new ChallengeController;
+
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $challenge = Challenge::query()->create([
+        'name' => 'Test Challenge',
+        'description' => null,
+        'created_by' => $otherUser->id,
+        'starting_time_seconds' => 60,
+        'daily_increment_seconds' => 10,
+        'goal_time_seconds' => 120,
+        'start_date' => today(),
+        'is_active' => true,
+    ]);
+
+    $challenge->users()->attach($otherUser->id);
+
+    $request = Request::create('/challenges/'.$challenge->id.'/leave', 'DELETE');
+    $request->setUserResolver(fn () => $user);
+
+    expect(fn () => $controller->leave($request, $challenge))
+        ->toThrow(ValidationException::class, 'You are not a member of this challenge.');
 });

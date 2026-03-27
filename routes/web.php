@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
     Route::post('challenges', [ChallengeController::class, 'store'])->name('challenges.store');
     Route::get('challenges/{challenge}', [ChallengeController::class, 'show'])->name('challenges.show');
+    Route::delete('challenges/{challenge}/leave', [ChallengeController::class, 'leave'])->name('challenges.leave');
     Route::get('join/{inviteCode}', [ChallengeController::class, 'join'])->name('challenges.join');
 
     Route::get('planks', [PlankController::class, 'index'])->name('planks.index');

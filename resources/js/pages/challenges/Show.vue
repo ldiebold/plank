@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, Form, useForm } from '@inertiajs/vue3';
 import {
     PlusCircle,
     Users,
     ArrowRight,
     Copy,
     CheckCircle2,
+    LogOut,
 } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,6 +19,16 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
 import challenges from '@/routes/challenges';
 import planks from '@/routes/planks';
 import Heading from '@/components/Heading.vue';
@@ -190,6 +201,41 @@ defineOptions({
                     Do Plank
                 </Link>
             </Button>
+
+            <Dialog>
+                <DialogTrigger as-child>
+                    <Button variant="outline" size="lg">
+                        <LogOut class="mr-2 h-5 w-5" />
+                        Leave
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <Form
+                        v-bind="challenges.leave.form(challenge.id)"
+                        v-slot="{ processing }"
+                    >
+                        <DialogHeader>
+                            <DialogTitle>Leave this challenge?</DialogTitle>
+                            <DialogDescription>
+                                You will be removed from this challenge. You can
+                                rejoin later with the invite code.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter class="gap-2">
+                            <DialogClose as-child>
+                                <Button variant="secondary">Cancel</Button>
+                            </DialogClose>
+                            <Button
+                                type="submit"
+                                variant="destructive"
+                                :disabled="processing"
+                            >
+                                Leave Challenge
+                            </Button>
+                        </DialogFooter>
+                    </Form>
+                </DialogContent>
+            </Dialog>
         </div>
     </div>
 </template>

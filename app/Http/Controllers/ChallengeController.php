@@ -86,4 +86,19 @@ class ChallengeController extends Controller
 
         return to_route('challenges.show', $challenge);
     }
+
+    public function leave(Request $request, Challenge $challenge): RedirectResponse
+    {
+        $user = $request->user();
+
+        if (! $challenge->users()->whereKey($user->id)->exists()) {
+            throw ValidationException::withMessages([
+                'challenge' => 'You are not a member of this challenge.',
+            ]);
+        }
+
+        $challenge->users()->detach($user->id);
+
+        return to_route('challenges.index');
+    }
 }
